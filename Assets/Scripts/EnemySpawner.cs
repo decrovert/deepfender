@@ -12,21 +12,36 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Tilemap tilemap = null;
     [SerializeField] private TileBase pathTile = null;
 
+    private Vector3? spawnPosition = null;
     private uint timer = 0;
 
-    private void SpawnEnemy()
+    private void FindSpawnPosition()
     {
         for (var i = tilemap.cellBounds.min.y; i < tilemap.cellBounds.max.y; ++i)
         {
             if (tilemap.GetTile(new Vector3Int(tilemap.cellBounds.max.x - 1, i, 0)) == pathTile)
             {
-                Instantiate(
-                    enemies[Random.Range(0, enemies.Length)],
-                    tilemap.GetCellCenterWorld(new Vector3Int(tilemap.cellBounds.max.x - 1, i, 0)),
-                    new Quaternion()
-                );
+                spawnPosition = tilemap.GetCellCenterWorld(new Vector3Int(
+                    tilemap.cellBounds.max.x - 1,
+                    i,
+                    0
+                ));
             }
         }
+    }
+
+    private void SpawnEnemy()
+    {
+        if (spawnPosition == null)
+        {
+            FindSpawnPosition();
+        }
+
+        Instantiate(
+            enemies[Random.Range(0, enemies.Length)],
+            (Vector3)spawnPosition,
+            new Quaternion()
+        );
     }
 
     void FixedUpdate()
