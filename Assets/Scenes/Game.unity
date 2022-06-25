@@ -2010,7 +2010,7 @@ GameObject:
   - component: {fileID: 2032737027}
   - component: {fileID: 2032737029}
   m_Layer: 0
-  m_Name: PathTilemap
+  m_Name: MainTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2155,3 +2155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathTile: {fileID: 11400000, guid: 6eec088c349c2064faa0c483714cf831, type: 2}
+  obstacleTiles:
+  - {fileID: 11400000, guid: 0cf90acee2d1c424eac1e2aacbc8174f, type: 2}
+  - {fileID: 11400000, guid: 0807f40475fbce04599c80881f16e737, type: 2}
+  trashTile: {fileID: 11400000, guid: 102a18313b9bef546b7bdf81dd5221d1, type: 2}
