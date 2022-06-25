@@ -57,10 +57,9 @@ struct Vector2Byte
 public class MapGenerator : MonoBehaviour
 {
     [Header("Tiles")]
-
-    [SerializeField] private TileBase pathTile;
-    [SerializeField] private TileBase[] obstacleTiles;
-    [SerializeField] private TileBase trashTile;
+    [SerializeField] private TileBase pathTile = null;
+    [SerializeField] private TileBase[] obstacleTiles = null;
+    [SerializeField] private TileBase trashTile = null;
 
     private void GeneratePath(MapArray mapArray)
     {
@@ -161,7 +160,7 @@ public class MapGenerator : MonoBehaviour
                         break;
 
                     case 2:
-                        tilemap.SetTile(cellPosition, obstacleTiles[PercentChance(50) ? 0 : 1]);
+                        tilemap.SetTile(cellPosition, obstacleTiles[Random.Range(0, obstacleTiles.Length)]);
                         break;
 
                     case 3:
@@ -172,7 +171,7 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    void Start()
+    void Awake()
     {
         WriteMapArrayToTilemap(GenerateMapArray(16, 10), gameObject.GetComponent<Tilemap>());
     }
