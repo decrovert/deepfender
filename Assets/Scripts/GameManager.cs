@@ -9,16 +9,22 @@ public class GameManager : MonoBehaviour
 
     [Header("EventTiles")]
     [SerializeField] private TileBase trashTile = null;
+    [SerializeField] private TileBase laserTowerTile = null;
+
+    [Header("Prefabs")]
+    [SerializeField] private GameObject laserTowerPrefab = null;
 
     [Header("Configuration")]
     [SerializeField] private GameObject particleEmitter = null;
 
-    private GameObject healthbar = null;
+    private Healthbar healthbar = null;
     private Camera cam = null;
+
+    public bool shoppingMode = false;
 
     void Awake()
     {
-        healthbar = GameObject.Find("Healthbar");
+        healthbar = GameObject.Find("Healthbar").GetComponent<Healthbar>();
         cam = GameObject.Find("Camera").GetComponent<Camera>();
     }
 
@@ -28,18 +34,39 @@ public class GameManager : MonoBehaviour
         {
             var mouseWorldPosition = cam.ScreenToWorldPoint(Input.mousePosition);
             var mousePositionInMainTilemap = mainTilemap.WorldToCell(mouseWorldPosition);
+            var mousePositionInBackgroundTilemap = backgroundTilemap.WorldToCell(mouseWorldPosition);
 
+            if (shoppingMode)
+            {
+                return;
+            }
+            
             if (mainTilemap.GetTile(mousePositionInMainTilemap) == trashTile)
             {
                 mainTilemap.SetTile(mousePositionInMainTilemap, null);
-                
+
                 Instantiate(
                     particleEmitter,
                     new Vector3(mouseWorldPosition.x, mouseWorldPosition.y, -1),
                     new Quaternion()
                 );
 
-                healthbar.GetComponent<Healthbar>().health += 5;
+                healthbar.health += 5;
+
+                return;
+            }
+
+            if (backgroundTilemap.GetTile(mousePositionInBackgroundTilemap) == laserTowerTile)
+            {
+                if (healthbar.health > 20)
+                {
+                    shoppingMode = true;
+                    Instantiate(
+                        laserTowerPrefab,
+                        new Vector3(mouseWorldPosition.x, mouseWorldPosition.y, 0),
+                        new Quaternion()
+                    );
+                }
             }
         }
     }

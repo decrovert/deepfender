@@ -7,6 +7,11 @@ public class Healthbar : MonoBehaviour
 
     void Update()
     {
+        if (health > 100)
+        {
+            health = 100;
+        }
+
         // health ---- 100
         // x --------- 8
         // x = health * 8 / 100
