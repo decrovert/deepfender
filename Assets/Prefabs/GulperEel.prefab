@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4196499694352159817}
   - component: {fileID: 4196499694352159830}
   - component: {fileID: 845852606392146902}
+  - component: {fileID: 5348727160918256571}
   m_Layer: 0
   m_Name: GulperEel
   m_TagString: Untagged
@@ -101,3 +102,23 @@ MonoBehaviour:
   speed: 4
   particleEmitter: {fileID: 7104279536730476766, guid: 037fb267df4d61648a50dd3b09cd0829, type: 3}
   health: 100
+--- !u!95 &5348727160918256571
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4196499694352159831}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 495c94fe95e9b374b8aacdaf0ad55b45, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
