@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class Enemy : MonoBehaviour
@@ -111,6 +112,11 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+            if (tilemap.WorldToCell(transform.position).x == -8)
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
+
             ChooseDirection();
             moving = true;
         }
