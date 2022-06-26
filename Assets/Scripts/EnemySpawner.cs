@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -14,6 +15,8 @@ public class EnemySpawner : MonoBehaviour
 
     private Vector3? spawnPosition = null;
     private uint timer = 0;
+
+    public List<GameObject> activeEnemies = new List<GameObject>();
 
     private void FindSpawnPosition()
     {
@@ -37,11 +40,11 @@ public class EnemySpawner : MonoBehaviour
             FindSpawnPosition();
         }
 
-        Instantiate(
+        activeEnemies.Add(Instantiate(
             enemies[Random.Range(0, enemies.Length)],
             (Vector3)spawnPosition,
             new Quaternion()
-        );
+        ));
     }
 
     void FixedUpdate()

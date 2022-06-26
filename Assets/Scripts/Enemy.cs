@@ -17,11 +17,18 @@ public class Enemy : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] private float speed = 4;
 
+    [Header("Particles")]
+    [SerializeField] private GameObject particleEmitter = null;
+
     private Tilemap tilemap;
 
     private MoveDirection currentDirection = MoveDirection.Forward;
     private Vector3 currentTargetPosition = Vector3.zero;
     private bool moving = false;
+
+    public float health = 100;
+
+    private EnemySpawner spawner = null;
 
     private void ChooseDirection()
     {
@@ -69,6 +76,22 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         tilemap = GameObject.Find("MainTilemap").GetComponent<Tilemap>();
+        spawner = GameObject.Find("EnemySpawner").GetComponent<EnemySpawner>();
+    }
+
+    private void Update()
+    {
+        if (health <= 0)
+        {
+            Instantiate(
+                particleEmitter,
+                new Vector3(transform.position.x, transform.position.y, -1),
+                new Quaternion()
+            );
+
+            spawner.activeEnemies.Remove(gameObject);
+            Destroy(gameObject);
+        }
     }
 
     void FixedUpdate()

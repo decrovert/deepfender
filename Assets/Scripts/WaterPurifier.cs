@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class LaserTower : MonoBehaviour
+public class WaterPurifier : MonoBehaviour
 {
     [Header("Tiles")]
     [SerializeField] private TileBase floorTile = null;
-    [SerializeField] private TileBase laserTowerTile = null;
+    [SerializeField] private TileBase waterPurifierTile = null;
     [SerializeField] private TileBase trashTile = null;
 
     [Header("Particles")]
@@ -20,18 +20,12 @@ public class LaserTower : MonoBehaviour
     private Healthbar healthbar = null;
 
     private bool placed = false;
-
-    private EnemySpawner enemySpawner = null;
-    private byte range = 3;
+    private float health = 50;
 
     [Header("Configuration")]
-    [SerializeField] private byte damage = 150;
+    [SerializeField] private byte cleaningRate = 1;
 
-    private LineRenderer lineRenderer = null;
-
-    private float health = 200;
-
-    void Awake()
+    private void Awake()
     {
         mainTilemap = GameObject.Find("MainTilemap").GetComponent<Tilemap>();
         backgroundTilemap = GameObject.Find("BackgroundTilemap").GetComponent<Tilemap>();
@@ -40,10 +34,6 @@ public class LaserTower : MonoBehaviour
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         healthbar = GameObject.Find("Healthbar").GetComponent<Healthbar>();
-
-        enemySpawner = GameObject.Find("EnemySpawner").GetComponent<EnemySpawner>();
-
-        lineRenderer = GetComponent<LineRenderer>();
     }
 
     void Update()
@@ -62,8 +52,8 @@ public class LaserTower : MonoBehaviour
                 if (backgroundTilemap.GetTile(mousePositionInBackgroundTilemap) == floorTile && mainTilemap.GetTile(mousePositionInMainTilemap) == null)
                 {
                     transform.position = mainTilemap.GetCellCenterWorld(mousePositionInMainTilemap);
-                    healthbar.health -= 20;
-                    mainTilemap.SetTile(mousePositionInMainTilemap, laserTowerTile);
+                    healthbar.health -= 30;
+                    mainTilemap.SetTile(mousePositionInMainTilemap, waterPurifierTile);
                     placed = true;
 
                     Instantiate(
@@ -76,25 +66,6 @@ public class LaserTower : MonoBehaviour
                 }
             }
         }
-    }
-
-    private GameObject GetClosestEnemy()
-    {
-        GameObject closestEnemy = null;
-        float minimumDistance = Mathf.Infinity;
-
-        foreach (var enemy in enemySpawner.activeEnemies)
-        {
-            float distance = Vector3.Distance(transform.position, enemy.transform.position);
-
-            if (distance < minimumDistance)
-            {
-                closestEnemy = enemy;
-                minimumDistance = distance;
-            }
-        }
-
-        return closestEnemy;
     }
 
     private void FixedUpdate()
@@ -117,21 +88,7 @@ public class LaserTower : MonoBehaviour
             Destroy(gameObject);
         }
 
-        var closestEnemy = GetClosestEnemy();
-
-        if (closestEnemy == null)
-        {
-            lineRenderer.enabled = false;
-            return;
-        }
-
-        if (Vector3.Distance(transform.position, closestEnemy.transform.position) <= range)
-        {
-            lineRenderer.enabled = true;
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, closestEnemy.transform.position);
-            closestEnemy.GetComponent<Enemy>().health -= (float)damage / 60;
-            health -= (float)damage / 60;
-        }
+        healthbar.health += (float)cleaningRate / 60;
+        health -= (float)cleaningRate / 2 / 60;
     }
 }

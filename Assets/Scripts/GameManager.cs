@@ -10,9 +10,11 @@ public class GameManager : MonoBehaviour
     [Header("EventTiles")]
     [SerializeField] private TileBase trashTile = null;
     [SerializeField] private TileBase laserTowerTile = null;
+    [SerializeField] private TileBase waterPurifierTile = null;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject laserTowerPrefab = null;
+    [SerializeField] private GameObject waterPurifierPrefab = null;
 
     [Header("Configuration")]
     [SerializeField] private GameObject particleEmitter = null;
@@ -58,11 +60,23 @@ public class GameManager : MonoBehaviour
 
             if (backgroundTilemap.GetTile(mousePositionInBackgroundTilemap) == laserTowerTile)
             {
-                if (healthbar.health > 20)
+                if (healthbar.health >= 20)
                 {
                     shoppingMode = true;
                     Instantiate(
                         laserTowerPrefab,
+                        new Vector3(mouseWorldPosition.x, mouseWorldPosition.y, 0),
+                        new Quaternion()
+                    );
+                }
+            }
+            else if (backgroundTilemap.GetTile(mousePositionInBackgroundTilemap) == waterPurifierTile)
+            {
+                if (healthbar.health >= 30)
+                {
+                    shoppingMode = true;
+                    Instantiate(
+                        waterPurifierPrefab,
                         new Vector3(mouseWorldPosition.x, mouseWorldPosition.y, 0),
                         new Quaternion()
                     );

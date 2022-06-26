@@ -422,6 +422,7 @@ MonoBehaviour:
   maximumSpawnTime: 5
   tilemap: {fileID: 2032737028}
   pathTile: {fileID: 11400000, guid: 6eec088c349c2064faa0c483714cf831, type: 2}
+  activeEnemies: []
 --- !u!1 &1604234821
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,7 +471,9 @@ MonoBehaviour:
   backgroundTilemap: {fileID: 1928414049}
   trashTile: {fileID: 11400000, guid: 102a18313b9bef546b7bdf81dd5221d1, type: 2}
   laserTowerTile: {fileID: 11400000, guid: 7c07068c53e5d7c4883413a25e92ceab, type: 2}
+  waterPurifierTile: {fileID: 11400000, guid: 2afae725b5e2d7048bf30c24f011b671, type: 2}
   laserTowerPrefab: {fileID: 1524400874530641257, guid: f27843149a5808c42b61b243be81f077, type: 3}
+  waterPurifierPrefab: {fileID: 5067481873378289151, guid: 0aedf9ab6212d24498ed9ce5e9d7381d, type: 3}
   particleEmitter: {fileID: 7104279536730476766, guid: 037fb267df4d61648a50dd3b09cd0829, type: 3}
   shoppingMode: 0
 --- !u!1 &1928414046
@@ -2174,6 +2177,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: -7, y: 5, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 4
+      m_TileSpriteIndex: 4
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: -8, y: 6, z: 0}
     second:
       serializedVersion: 2
@@ -2204,6 +2217,8 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 7c07068c53e5d7c4883413a25e92ceab, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 3a387f51747ad3e4c92ca8367b67c842, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 2afae725b5e2d7048bf30c24f011b671, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 160
     m_Data: {fileID: 21300000, guid: 3455e2f6d333de4459baf20fe5eaba1f, type: 3}
@@ -2213,8 +2228,10 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: 5f5ae023221bc924592e2c30c888331d, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: afc26e7f6e95da34e917aee0d6eab49c, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: eb37ef9a208ab57428c76b3b35145ee9, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 163
+  - m_RefCount: 164
     m_Data:
       e00: 1
       e01: 0
@@ -2233,7 +2250,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 163
+  - m_RefCount: 164
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1

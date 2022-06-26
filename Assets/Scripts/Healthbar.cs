@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class Healthbar : MonoBehaviour
 {
-    [Range(0, 100)]
-    public byte health = 25;
+    public float health = 25;
 
     void Update()
     {
